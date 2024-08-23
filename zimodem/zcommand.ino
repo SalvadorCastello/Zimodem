@@ -1251,14 +1251,14 @@ ZResult ZCommand::doWebStream(int vval, uint8_t *vbuf, int vlen, bool isNumber, 
   if((strstr((char *)vbuf,"ftp:")==(char *)vbuf)
   ||(strstr((char *)vbuf,"ftps:")==(char *)vbuf))
   {
-    debugPrintf("Vai chamar makeFTPHost\n");
+    debugPrintf("Vai chamar makeFTPHost\n");       // **SCM
     ftpHost = makeFTPHost(true,ftpHost,vbuf,&req);
-    debugPrintf("FTPHost %s\n",ftpHost);
-    debugPrintf("req %s\n",req);
+    debugPrintf("FTPHost %s\n",ftpHost);      // **SCM
+    debugPrintf("req %s\n",req);              // **SCM
     if((req == 0)||(ftpHost==0))
       return ZERROR;
     else
-      debugPrintf("Seguiu\n");   
+      debugPrintf("Seguiu\n");             // **SCM
   }
   else
 #endif
@@ -1269,10 +1269,10 @@ ZResult ZCommand::doWebStream(int vval, uint8_t *vbuf, int vlen, bool isNumber, 
   //debugPrintf("if parseweburl\n");  
   if(!parseWebUrl(vbuf,&hostIp,&req,&port,&doSSL))
     return ZERROR;
-  debugPrintf("if cache\n");
+  debugPrintf("if cache\n");       // **SCM
   if(cache)
   {
-    debugPrintf("sim cache\n");
+    debugPrintf("sim cache\n");     // **SCM
     if(!SPIFFS.exists(filename))
     {
 #ifdef INCLUDE_FTP
@@ -1280,9 +1280,9 @@ ZResult ZCommand::doWebStream(int vval, uint8_t *vbuf, int vlen, bool isNumber, 
       {
         if(!ftpHost->doLS(&serial, req))
         {
-          debugPrintf("LS FALHOU\n");
+          debugPrintf("LS FALHOU\n");   // **SCM FTP Changed to LS 
         }
-        debugPrintf("LS terminou\n");
+        debugPrintf("LS terminou\n");   // **SCM SAME removed lines bellow
         //if(!ftpHost->doGet(&SPIFFS,filename,req))
         //{
         //  delete ftpHost;
@@ -1311,7 +1311,7 @@ ZResult ZCommand::doWebStream(int vval, uint8_t *vbuf, int vlen, bool isNumber, 
 #ifdef INCLUDE_FTP
     if(ftpHost != 0)
     {
-      debugPrintf("entrou por aqui\n");
+      debugPrintf("entrou por aqui\n");       // **SCM
       c=ftpHost->doGetStream(req, &respLength);
       if(c==null)
         delete ftpHost;
@@ -1349,7 +1349,7 @@ ZResult ZCommand::doWebStream(int vval, uint8_t *vbuf, int vlen, bool isNumber, 
 #ifdef INCLUDE_FTP
     if(ftpHost != 0)
     {
-      debugPrintf("por aqui\n");  // PAREI AQUI
+      debugPrintf("por aqui\n");  // **SCM Changed to LS
       //if(!ftpHost->doLS(&serial, req))
       //{
       //  debugPrintf("LS FALHOU\n");
